@@ -1,0 +1,18 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+html{
+  font-size: 62.5%;
+}
+body{
+  height: 100vh;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.ellipsis1rows{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
