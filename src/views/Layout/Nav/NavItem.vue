@@ -21,13 +21,10 @@ export default {
   props: {
     menus: {
       type: Array,
-      default: function() {
+      default: function () {
         return []
       }
     }
   }
 }
 </script>
-<style lang="css">
-  
-</style>

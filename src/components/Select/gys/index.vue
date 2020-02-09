@@ -1,86 +1,58 @@
 <template>
   <div>
     <span>供应商</span>
-    <el-select
-      v-model="value"
-      filterable
-      remote
+    <el-autocomplete
+      v-if="$attrs.editable"
+      ref="elselect"
+      v-model="val"
+      value-key="name"
+      :fetch-suggestions="querySearchAsync"
+      :disabled="$attrs.disabled"
+      :validate-event="false"
       placeholder="请选择供应商"
-      suffix-icon="el-icon-search"
-      :remote-method="remoteMethod"
-      :loading="loading">
-      <el-option
-        v-for="item in options"
-        :key="item.id"
-        :label="item.name"
-        :value="item.id">
-        <SelectCell :options="$attrs" :data="item"/>
-      </el-option>
-      <slot />
-    </el-select>
+      @select="handleItemChange"
+      @focus="focus"
+      @blur="blur"
+      @mouseenter.native="mouseEnter"
+      @mouseleave.native="mouseLeave">
+      <template slot-scope="{ item }">
+        <select-cell :data="item" :options="$attrs" :query="query" />
+      </template>
+      <i slot="suffix" class="el-input__icon" :class="setIcon" @click="doIconClick"></i>
+    </el-autocomplete>
+    <div v-else class="x6-select-text" :title="$attrs.text">{{ $attrs.text }}</div>
+    <more ref="more"/>
+    <create ref="create"/>
   </div>
 </template>
 <script>
 import SelectCell from './render'
+import More from './more'
+import Create from './create'
+import selectMixins from '../mixins'
+import { util } from '../../../server/util'
 export default {
   name: 'SelectGys',
-  data() {
+  mixins: [selectMixins],
+  props: ['value'],
+  data () {
     return {
-      options: [
-        {
-          id: 1,
-          name: '苹果苏州分公司苹果苏州分公司苹果苏州分公司',
-          lxr: '安培',
-          phone: '13562211220',
-          ye: 25151
-        },
-        {
-          id: 2,
-          name: '华为苏州分公司',
-          lxr: '法拉第',
-          phone: '13562211220',
-          ye: 23
-        },
-        {
-          id: 3,
-          name: '小米苏州分公司',
-          lxr: '麦克斯韦',
-          phone: '13562211220',
-          ye: 11
-        },
-        {
-          id: 4,
-          name: 'oppo苏州分公司',
-          lxr: '高斯',
-          phone: '13562211220',
-          ye: 152
-        },
-        {
-          id: 5,
-          name: 'vivo苏州分公司',
-          lxr: '傅里叶',
-          phone: '13562211220',
-          ye: 1
-        }
-      ],
-      value: '',
-      loading: false,
+      matchKeys: ['name', 'zjm'], // 本地匹配时候可以匹配的字段
+      actionParams: {
+        setlx: 'hot_gysxx',
+        lx: 2,
+        fw: this.$attrs.fw
+      }
     }
   },
-  components: { SelectCell },
+  components: { SelectCell, More, Create },
   methods: {
-    remoteMethod(query) {
-      if (query) {
-        this.loading = true
-
-      } else {
-        this.loading = false
-        this.options = []
-      }
+    getCacheData () {
+      this.cacheList = this.$util.getCache('dmjglist', 2)
     },
+    requestData (cb) {
+      
+    }
   }
 }
 </script>
-<style lang="css">
-  
-</style>

@@ -18,11 +18,11 @@
 <script>
 import NavItem from './NavItem'
 export default {
-  name: "Nav",
+  name: 'Nav',
   props: {
     backgroundColor: {
       type: String,
-      default: "#545c64"
+      default: '#545c64'
     },
     collapse: {
       type: Boolean,
@@ -30,7 +30,7 @@ export default {
     }
   },
   components: { NavItem },
-  data() {
+  data () {
     return {
       navs: [
         {
@@ -39,18 +39,30 @@ export default {
           path: '/select-comp',
           children: [
             { label: '供应商', path: '/select-comp/gys' },
-            { label: '公司', path: '/select-comp/gs' }
+            { label: '公司', path: '/select-comp/gs' },
+            { label: '成员/员工', path: '/select-comp/yg' },
+            { label: '运营商', path: '/select-comp/yys' },
+            { label: '客户', path: '/select-comp/kh' },
+            { label: '消费者', path: '/select-comp/xfz' },
+            { label: '商品', path: '/select-comp/sp' },
+            { label: '套餐', path: '/select-comp/tc' },
+            { label: '账户', path: '/select-comp/zh' },
           ]
         },
-        { 
+        {
           label: 'input组件',
           path: '/input-comp',
+          icon: 'el-icon-menu'
+        },
+        {
+          label: 'table组件',
+          path: '/table-comp',
           icon: 'el-icon-menu'
         }
       ]
     }
   }
-};
+}
 </script>
 <style lang="css">
 .x6-scroll-bar {

@@ -4,7 +4,19 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  mounted () {
+    this.getAllCache()
+  },
+  methods: {
+    getAllCache () {
+      this.$api.GetAllCache({}).then(res => {
+        delete res.result
+        delete res.message
+        this.$util.saveAllCache(res)
+      })
+    }
+  }
 }
 </script>
 

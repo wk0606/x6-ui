@@ -1,28 +1,31 @@
+import PY from '../../../server/pinyin'
 export default {
   name: 'SelectCell',
-  data() {
+  data () {
     return {
 
     }
   },
-  props: ['options', 'data'],
-  render(h) {
-    const Nodes = [
-      h('span', {
-        class: {
-          'ellipsis1rows': true
-        },
+  props: ['options', 'data', 'query'],
+  render (h) {
+    let _temp = this.$util.splitKeyWordsForQuery(this.data.name, this.query)
+    let _nodes = []
+    for (let item of _temp) {
+      _nodes.push(h('span', {
         style: {
-          'color': '#333',
+          color: item.isred ? 'red' : '#333'
         }
-      }, this.data.name)
+      }, item.txt))
+    }
+    const Nodes = [
+      h('div', {}, _nodes)
     ]
-    if (this.options.showYe) {
+    if (this.options.lazyload === true && this.options['show-ye']) {
       Nodes.push(
         h('span', {
           style: {
-            'color': 'red',
-            'margin-left': '10px'
+            'color': '#bfbfbf',
+            'margin-left': '15px'
           }
         }, this.$util.format('currency', this.data.ye))
       )
@@ -35,5 +38,5 @@ export default {
         'justify-content': 'space-between'
       }
     }, Nodes)
-  },
+  }
 }

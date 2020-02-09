@@ -10,7 +10,7 @@
 import XNav from './Nav/index'
 export default {
   name: 'Nav',
-  data() {
+  data () {
     return {
       collapse: false
     }
@@ -28,5 +28,6 @@ export default {
   flex-grow: 1;
   box-sizing: border-box;
   padding: 15px;
+  overflow-y: auto;
 }
 </style>
